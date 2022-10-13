@@ -14,7 +14,7 @@ app.use(express.json());
 app.get("/todos", async(req, res) => {
 	try {
 		const allTodo = await pool.query(
-			"SELECT * FROM todo"
+			"SELECT * FROM todo ORDER BY todo_id DESC"
 		);
 		res.json(allTodo.rows);
 	} catch(err) {

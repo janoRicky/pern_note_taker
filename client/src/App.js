@@ -20,13 +20,8 @@ import Update from './components/Update';
 
 function App() {
   const [list, setList] = useState([]);
-  const [addForm, setAddForm] = useState({
-    description: ''
-  });
 
-  useEffect(() => {
-    document.title = 'PERN Test'
-  }, []);
+  document.title = 'PERN Notepad';
 
   useEffect(() => {
     getListFunction();
@@ -54,21 +49,6 @@ function App() {
     }
   };
 
-  const addItemFunction = async (e) => {
-    e.preventDefault();
-    try {
-      const body = {
-        description: addForm.description
-      };
-      const response = await fetch('http://localhost:8080/todos', {
-        method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify(body)
-      });
-    } catch (err) {
-      console.error(err.message);
-    }
-  };
   const deleteItemFunction = async (item_id) => {
     try {
       const response = await fetch('http://localhost:8080/todos/' + item_id, {
@@ -88,8 +68,6 @@ function App() {
           <Route path="/" element={<Navigation />}>
             <Route index 
               element={<Main list={ list } 
-              addItemFunction={ addItemFunction } 
-              setAddForm={ setAddForm }
               deleteItemFunction={ deleteItemFunction } />} />
             <Route path="/view/:id" element={<View getItemFunction={ getItemFunction } />} />
             <Route path="/update/:id" element={<Update getItemFunction={ getItemFunction } />} />
